@@ -1,0 +1,59 @@
+﻿@model StarSubs.Models.Sub
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+
+
+<body class="bg-info">
+
+    <h1 class="text-center">Welcome to StarSubs!</h1>
+
+    <div class="text-center">
+        <img src="~/122266_f520.jpg" />
+    </div>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+
+        <div class="container row text-center"> <br />
+          <div>
+            @Html.Label("Number of Meals: ")
+            @Html.TextBoxFor(m => m.MealNumber, new { @type = "number",  @min = "0" })
+          </div>
+            <div class="row text-center">
+                <div class="col col-sm-6">
+                    <p>Select a Sandwich</p>
+                    @Html.ListBoxFor(m => m.SubName, new SelectList(Enum.GetValues(typeof(StarSubs.Models.SubName))))
+                </div>
+
+                <div class="col col-sm-6">
+                    <p>Select a Size</p>
+                    @Html.ListBoxFor(m => m.Size, new SelectList(Enum.GetValues(typeof(StarSubs.Models.Size))))
+                </div>
+            </div>
+
+            <div class="row text-center"><br />
+
+                <p ><b>Select a Meal Deal</b></p>
+                  @Html.RadioButtonFor(m => m.Meal, StarSubs.Models.Meal.None, new { Checked = "checked" }) None
+                  @Html.RadioButtonFor(m => m.Meal, StarSubs.Models.Meal.DrinkChips) Drink and Chips
+                 @Html.RadioButtonFor(m => m.Meal, StarSubs.Models.Meal.DrinkCookies) Drink and Cookies
+            </div> <br />
+            
+            <div class="text-center"> 
+                <input type="submit" name="submit" value="Place Order" />
+            </div><br />
+
+             <div class="text-center">
+                 @Html.ActionLink("Today's Totals", "Total", "Home") 
+             </div>
+        </div>
+    }
+
+</body>
